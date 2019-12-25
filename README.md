@@ -1,6 +1,8 @@
 # map-recursive
 map-recursive
 
+This package has no dependency.
+
 ## mapRecursiveLeaf
 ```javascript 
 
