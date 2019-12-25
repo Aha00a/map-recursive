@@ -5,6 +5,8 @@ Transform object to other form, recursively.
 
 This package has no dependency.
 
+[![Build Status](https://travis-ci.org/Aha00a/map-recursive.svg?branch=master)](https://travis-ci.org/Aha00a/map-recursive)
+
 ## mapRecursiveLeaf
 ```javascript 
 const mapRecursive = require('map-recursive');
