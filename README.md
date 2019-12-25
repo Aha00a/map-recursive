@@ -15,7 +15,23 @@ mapRecursive.mapRecursiveLeaf(
 ```
 
 ## mapRecursive
-```javascript 
+```javascript            
+const convertObjectOnlyHaveAtIdToString = v => {
+    if (typeof v !== 'object')
+        return v;
+
+    const keys = Object.keys(v);
+    if (keys.length !== 1)
+        return v;
+
+    if (keys[0] !== '@id')
+        return v;
+
+    return v['@id'];
+};
+
+mapRecursive.mapRecursive({a: {"@id": "id"}}, convertObjectOnlyHaveAtIdToString).should.deep.equal({a: "id"});
+
 mapRecursive.mapRecursive(
     {
         "@id": "http://schema.org/preparation",
