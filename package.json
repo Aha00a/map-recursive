@@ -10,8 +10,8 @@
     "type": "git",
     "url": "git+https://github.com/Aha00a/map-recursive.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "KIM, Aha <aha00a@gmail.com> (https://aha00a.com)",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Aha00a/map-recursive/issues"
   },
