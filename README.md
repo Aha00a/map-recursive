@@ -1,10 +1,13 @@
 # map-recursive
 map-recursive
 
+Transform object to other form, recursively.
+
 This package has no dependency.
 
 ## mapRecursiveLeaf
 ```javascript 
+const mapRecursive = require('map-recursive');
 
 mapRecursive.mapRecursiveLeaf(
     {a: {b: 1, c: [3, {d: 4, e: 5,}, 6], f: 7},},
@@ -18,6 +21,8 @@ mapRecursive.mapRecursiveLeaf(
 
 ## mapRecursive
 ```javascript            
+const mapRecursive = require('map-recursive');
+
 const convertObjectOnlyHaveAtIdToString = v => {
     if (typeof v !== 'object')
         return v;
@@ -77,4 +82,3 @@ mapRecursive.mapRecursive(
 );
 
 ```
-
