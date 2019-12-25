@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/Aha00a/map-recursive/issues"
   },
-  "homepage": "https://github.com/Aha00a/map-recursive#readme"
+  "homepage": "https://github.com/Aha00a/map-recursive#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2",
+    "nyc": "^15.0.0"
+  }
 }
