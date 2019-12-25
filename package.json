@@ -1,0 +1,19 @@
+{
+  "name": "map-recursive",
+  "version": "1.0.0",
+  "description": "map-recursive",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aha00a/map-recursive.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Aha00a/map-recursive/issues"
+  },
+  "homepage": "https://github.com/Aha00a/map-recursive#readme"
+}
