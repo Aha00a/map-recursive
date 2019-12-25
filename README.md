@@ -30,7 +30,12 @@ const convertObjectOnlyHaveAtIdToString = v => {
     return v['@id'];
 };
 
-mapRecursive.mapRecursive({a: {"@id": "id"}}, convertObjectOnlyHaveAtIdToString).should.deep.equal({a: "id"});
+mapRecursive.mapRecursive(
+    {a: {"@id": "id"}}, 
+    convertObjectOnlyHaveAtIdToString
+).should.deep.equal(
+    {a: "id"}
+);
 
 mapRecursive.mapRecursive(
     {
