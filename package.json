@@ -5,7 +5,8 @@
   "keywords": ["map", "recursive"],
   "main": "index.js",
   "scripts": {
-    "test": "mocha --watch"
+    "test": "mocha",
+    "testwatch": "mocha --watch"
   },
   "repository": {
     "type": "git",
