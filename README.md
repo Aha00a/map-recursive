@@ -89,3 +89,25 @@ mapRecursive.mapRecursive(
 );
 
 ```
+## mapRecursiveKey
+mapRecursive.mapRecursiveKey(object, callback = (value, key, parent) => value)
+* `object`: The object to transform
+* `callback`: The function to process each key against. `callback` will be invoked for internal nodes.
+```javascript            
+const mapRecursive = require('map-recursive');
+
+mapRecursive.mapRecursiveKey(
+    {a: {b: 1, c: [3, {d: 4, e: 5,}, 6], f: 7},},
+    v => v + v
+).should.deep.equal(
+    {aa: {bb: 1, cc: [3, {dd: 4, ee: 5,}, 6], ff: 7},},
+);
+
+mapRecursive.mapRecursiveKey(
+    {"@id": "id", name: "name", "@some": "some",},
+    v => v.replace(/^@/, "")
+).should.deep.equal(
+    {id: "id", name: "name", some: "some",},
+);
+```
+

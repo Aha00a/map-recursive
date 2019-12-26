@@ -38,8 +38,36 @@ const mapRecursiveLeaf = (o, callback = defaultCallback) => mapRecursive(o, (val
     return callback(value, key, parent);
 });
 
+// noinspection JSUnusedLocalSymbols
+const mapRecursiveKey = (o, callback = defaultCallback, key, parent) => {
+    if (Array.isArray(o)) {
+        return o.map((val, key, array) => {
+            if (typeof val === 'object')
+                return mapRecursiveKey(val, callback, key, array);
+
+            return val;
+        });
+    }
+
+    if (typeof o === 'object') {
+        return Object.keys(o).reduce((obj, key) => {
+            const val = o[key];
+            if (typeof val === 'object') {
+                obj[callback(key)] = mapRecursiveKey(val, callback, key, o);
+            } else {
+                obj[callback(key)] = val;
+            }
+            return obj;
+        }, {});
+    }
+
+    return o;
+};
+
+
 // noinspection JSUnresolvedVariable
 module.exports = {
     mapRecursiveLeaf,
     mapRecursive,
+    mapRecursiveKey,
 };
