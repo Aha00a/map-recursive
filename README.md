@@ -8,6 +8,10 @@ This package has no dependency.
 [![Build Status](https://travis-ci.org/Aha00a/map-recursive.svg?branch=master)](https://travis-ci.org/Aha00a/map-recursive)
 
 ## mapRecursiveLeaf
+mapRecursive.mapRecursiveLeaf(object, callback = (value, key, parent) => value)
+* `object`: The object to transform
+* `callback`: The function to process each item against. `callback` will be invoked for leaf nodes only.
+
 ```javascript 
 const mapRecursive = require('map-recursive');
 
@@ -17,11 +21,12 @@ mapRecursive.mapRecursiveLeaf(
 ).should.deep.equal(
     {a: {b: 10, c: [30, {d: 40, e: 50,}, 60], f: 70},}
 );
-
-
 ```
 
 ## mapRecursive
+mapRecursive.mapRecursive(object, callback = (value, key, parent) => value)
+* `object`: The object to transform
+* `callback`: The function to process each item against. `callback` will be invoked for each nodes.
 ```javascript            
 const mapRecursive = require('map-recursive');
 
