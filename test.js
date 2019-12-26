@@ -111,14 +111,14 @@ describe('mapRecursive', function () {
             {a: {b: 1, c: [3, {d: 4, e: 5,}, 6], f: 7},},
             v => v + v
         ).should.deep.equal(
-            {aa: {bb: 1, cc: [3, {dd: 4, ee: 5,}, 6], ff: 7},},
+            {aa: {bb: 1, cc: [3, {dd: 4, ee: 5,}, 6], ff: 7},}
         );
         
         mapRecursive.mapRecursiveKey(
             {"@id": "id", name: "name", "@some": "some",},
             v => v.replace(/^@/, "")
         ).should.deep.equal(
-            {id: "id", name: "name", some: "some",},
+            {id: "id", name: "name", some: "some",}
         );
     });
 });
