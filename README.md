@@ -6,7 +6,7 @@ Transform object to other form, recursively.
 This package has no dependency.
 
 [![Build Status](https://travis-ci.org/Aha00a/map-recursive.svg?branch=master)](https://travis-ci.org/Aha00a/map-recursive)
-![Node.js CI](https://github.com/Aha00a/map-recursive/workflows/Node.js%20CI/badge.svg)
+[![Node.js CI](https://github.com/Aha00a/map-recursive/workflows/Node.js%20CI/badge.svg)](https://github.com/Aha00a/map-recursive/actions?query=workflow%3A%22Node.js+CI%22)
 
 ## mapRecursiveLeaf
 mapRecursive.mapRecursiveLeaf(object, callback = (value, key, parent) => value)
