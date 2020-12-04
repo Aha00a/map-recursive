@@ -8,25 +8,112 @@ This package has no dependency.
 [![Build Status](https://travis-ci.org/Aha00a/map-recursive.svg?branch=master)](https://travis-ci.org/Aha00a/map-recursive)
 
 ## mapRecursiveLeaf
-mapRecursive.mapRecursiveLeaf(object, callback = (value, key, parent) => value)
-* `object`: The object to transform
-* `callback`: The function to process each item against. `callback` will be invoked for leaf nodes only.
+```typescript
+declare function mapRecursiveLeaf(
+    o: object, 
+    callback?: (
+        value: boolean | number | string, 
+        key?: boolean | number | string, 
+        parent?: object
+    ) => any
+): object;     
+```
 
+### Parameters
+* `o`: The object to transform.
+* `callback`(optional): The function to process each item against. `callback` will be invoked for leaf nodes only. The returned value is added to new object.
+  * `value`: The current value being processed in the object.
+  * `key`(optional): The key of the current value being processed in the object.
+  * `parent`(optional): The parent of the current value being processed in the object. 
+
+### Return Value
+A new object with each value being the result of the callback function.
+
+### Usage
 ```javascript 
 const mapRecursive = require('map-recursive');
 
 mapRecursive.mapRecursiveLeaf(
+    {a: 1, b: 2, c: 3,}, 
+    v => v * 10
+); // == {a: 10, b: 20, c: 30,}
+
+mapRecursive.mapRecursiveLeaf(
     {a: {b: 1, c: [3, {d: 4, e: 5,}, 6], f: 7},},
     v => v * 10
-).should.deep.equal(
-    {a: {b: 10, c: [30, {d: 40, e: 50,}, 60], f: 70},}
-);
+); // === {a: {b: 10, c: [30, {d: 40, e: 50,}, 60], f: 70},}
 ```
 
+
+
+## mapRecursiveKey
+```typescript
+declare function mapRecursiveKey(
+    o: object, 
+    callback?: (
+        key: boolean | number | string, 
+        value?: object, 
+        parent?: object
+    ) => boolean | number | string
+): object;     
+```                               
+
+### Parameters
+* `o`: The object to transform.
+* `callback`(optional): The function to process each item against. `callback` will be invoked for internal nodes only. The returned key is added to new object.
+  * `key`: The key of the current value being processed in the object.
+  * `value`(optional): The current value being processed in the object.
+  * `parent`(optional): The parent of the current value being processed in the object. 
+
+### Return Value
+A new object with each key being the result of the callback function.
+
+### Usage
+```javascript            
+const mapRecursive = require('map-recursive');
+
+mapRecursive.mapRecursiveKey(
+    {a: {b: 1, c: [3, {d: 4, e: 5,}, 6], f: 7},},
+    v => v + v
+); // === {aa: {bb: 1, cc: [3, {dd: 4, ee: 5,}, 6], ff: 7},},
+
+mapRecursive.mapRecursiveKey(
+    {"@id": "id", name: "name", "@some": "some",},
+    v => v.replace(/^@/, "")
+); // === {id: "id", name: "name", some: "some",},
+```
+
+
+
+
+
 ## mapRecursive
-mapRecursive.mapRecursive(object, callback = (value, key, parent) => value)
-* `object`: The object to transform
-* `callback`: The function to process each item against. `callback` will be invoked for each nodes.
+```typescript
+declare function mapRecursive(
+    o: object, 
+    callback?: (
+        value: any, 
+        key?: boolean | number | string, 
+        parent?: object
+    ) => any,
+    key?: boolean | number | string,
+    parent?: object 
+): object;     
+```
+
+### Parameters
+* `o`: The object to transform.
+* `callback`(optional): The function to process each item against. `callback` will be invoked for all nodes. The returned value is added to new object.
+  * `value`: The current value being processed in the object.
+  * `key`(optional): The key of the current value being processed in the object.
+  * `parent`(optional): The parent of the current value being processed in the object. 
+* `key`(optional): for internal use.
+* `parent`(optional): for internal use.
+
+### Return Value
+A new object with each value being the result of the callback function.
+
+### Usage
 ```javascript            
 const mapRecursive = require('map-recursive');
 
@@ -47,9 +134,7 @@ const convertObjectOnlyHaveAtIdToString = v => {
 mapRecursive.mapRecursive(
     {a: {"@id": "id"}}, 
     convertObjectOnlyHaveAtIdToString
-).should.deep.equal(
-    {a: "id"}
-);
+); // === {a: "id"}
 
 mapRecursive.mapRecursive(
     {
@@ -73,7 +158,7 @@ mapRecursive.mapRecursive(
         "rdfs:label": "preparation"
     },
     convertObjectOnlyHaveAtIdToString
-).should.deep.equal(
+); /* ===
     {
         "@id": "http://schema.org/preparation",
         "@type": "rdf:Property",
@@ -86,28 +171,5 @@ mapRecursive.mapRecursive(
         "rdfs:comment": "Typical preparation that a patient must undergo before having the procedure performed.",
         "rdfs:label": "preparation"
     }
-);
-
+*/
 ```
-## mapRecursiveKey
-mapRecursive.mapRecursiveKey(object, callback = (value, key, parent) => value)
-* `object`: The object to transform
-* `callback`: The function to process each key against. `callback` will be invoked for internal nodes.
-```javascript            
-const mapRecursive = require('map-recursive');
-
-mapRecursive.mapRecursiveKey(
-    {a: {b: 1, c: [3, {d: 4, e: 5,}, 6], f: 7},},
-    v => v + v
-).should.deep.equal(
-    {aa: {bb: 1, cc: [3, {dd: 4, ee: 5,}, 6], ff: 7},},
-);
-
-mapRecursive.mapRecursiveKey(
-    {"@id": "id", name: "name", "@some": "some",},
-    v => v.replace(/^@/, "")
-).should.deep.equal(
-    {id: "id", name: "name", some: "some",},
-);
-```
-

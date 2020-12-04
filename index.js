@@ -1,7 +1,5 @@
 // noinspection JSUnusedLocalSymbols
-const defaultCallback = (value, key, parent) => value;
-
-const mapRecursive = (o, callback = defaultCallback, key, parent) => {
+const mapRecursive = (o, callback = (value, key, parent) => value, key, parent) => {
     const newVal = callback(o, key, o);
     if (newVal !== o)
         return newVal;
@@ -31,7 +29,8 @@ const mapRecursive = (o, callback = defaultCallback, key, parent) => {
 };
 
 
-const mapRecursiveLeaf = (o, callback = defaultCallback) => mapRecursive(o, (value, key, parent) => {
+// noinspection JSUnusedLocalSymbols
+const mapRecursiveLeaf = (o, callback = (value, key, parent) => value) => mapRecursive(o, (value, key, parent) => {
     if(typeof value === 'object')
         return value;
 
@@ -39,7 +38,7 @@ const mapRecursiveLeaf = (o, callback = defaultCallback) => mapRecursive(o, (val
 });
 
 // noinspection JSUnusedLocalSymbols
-const mapRecursiveKey = (o, callback = defaultCallback, key, parent) => {
+const mapRecursiveKey = (o, callback = (key, value, parent) => key, key, parent) => {
     if (Array.isArray(o)) {
         return o.map((val, key, array) => {
             if (typeof val === 'object')
@@ -53,9 +52,9 @@ const mapRecursiveKey = (o, callback = defaultCallback, key, parent) => {
         return Object.keys(o).reduce((obj, key) => {
             const val = o[key];
             if (typeof val === 'object') {
-                obj[callback(key)] = mapRecursiveKey(val, callback, key, o);
+                obj[callback(key, val, o)] = mapRecursiveKey(val, callback, key, o);
             } else {
-                obj[callback(key)] = val;
+                obj[callback(key, val, o)] = val;
             }
             return obj;
         }, {});
