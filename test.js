@@ -81,7 +81,7 @@ describe('mapRecursive', function () {
         mapRecursive.mapRecursiveLeaf({a: 1}).should.deep.equal({a: 1});
         mapRecursive.mapRecursiveLeaf({a: 1, b: 2}).should.deep.equal({a: 1, b: 2});
     });
-    
+
     it('mapRecursiveLeaf(v, f)', function () {
         mapRecursive.mapRecursiveLeaf(1, v => v + 1).should.equal(2);
         mapRecursive.mapRecursiveLeaf([1, 2], v => v + 1).should.deep.equal([2, 3]);
@@ -113,7 +113,7 @@ describe('mapRecursive', function () {
         ).should.deep.equal(
             {aa: {bb: 1, cc: [3, {dd: 4, ee: 5,}, 6], ff: 7},}
         );
-        
+
         mapRecursive.mapRecursiveKey(
             {"@id": "id", name: "name", "@some": "some",},
             v => v.replace(/^@/, "")
