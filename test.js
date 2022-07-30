@@ -70,6 +70,48 @@ describe('mapRecursive', function () {
         );
     });
 
+    it('mapRecursive', function () {
+        mapRecursive.mapRecursive({
+            id: 1,
+            a: 2,
+            b: 3,
+            children: [
+                {
+                    id: 2,
+                    a: 1,
+                    b: 2,
+                    children: [
+                        {
+                            id: 3,
+                            a: 1,
+                        }
+                    ]
+                }
+            ]
+        }, v => {
+            if(typeof v !== 'object')
+                return v;
+
+            if(Array.isArray(v))
+                return v;
+
+            Object.keys(v).filter(k => !['id', 'children'].includes(k)).map(k => delete v[k]); // TODO: need to be pure function.
+            return v;
+        }).should.deep.equal({
+            id: 1,
+            children: [
+                {
+                    id: 2,
+                    children: [
+                        {
+                            id: 3
+                        }
+                    ]
+                }
+            ]
+        });
+    });
+
     it('mapRecursiveLeaf(v)', function () {
         mapRecursive.mapRecursiveLeaf(1).should.equal(1);
         mapRecursive.mapRecursiveLeaf('a').should.equal('a');
