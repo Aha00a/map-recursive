@@ -1,7 +1,7 @@
 // noinspection JSUnusedLocalSymbols
 const mapRecursive = (o, callback = (value, key, parent) => value, key, parent) => {
     const newVal = callback(o, key, o);
-    if (newVal !== o)
+    if (newVal === null || newVal !== o)
         return newVal;
 
     if (Array.isArray(o)) {
@@ -31,7 +31,7 @@ const mapRecursive = (o, callback = (value, key, parent) => value, key, parent) 
 
 // noinspection JSUnusedLocalSymbols
 const mapRecursiveLeaf = (o, callback = (value, key, parent) => value) => mapRecursive(o, (value, key, parent) => {
-    if(typeof value === 'object')
+    if(value !== null && typeof value === 'object')
         return value;
 
     return callback(value, key, parent);
