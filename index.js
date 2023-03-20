@@ -4,6 +4,9 @@ const mapRecursive = (o, callback = (value, key, parent) => value, key, parent) 
     if (newVal === null || newVal !== o)
         return newVal;
 
+    if(o instanceof Date)
+        return newVal;
+
     if (Array.isArray(o)) {
         return o.map((val, key, array) => {
             if (typeof val === 'object')
@@ -31,7 +34,7 @@ const mapRecursive = (o, callback = (value, key, parent) => value, key, parent) 
 
 // noinspection JSUnusedLocalSymbols
 const mapRecursiveLeaf = (o, callback = (value, key, parent) => value) => mapRecursive(o, (value, key, parent) => {
-    if(value !== null && typeof value === 'object')
+    if(value !== null && typeof value === 'object' && !(value instanceof Date))
         return value;
 
     return callback(value, key, parent);

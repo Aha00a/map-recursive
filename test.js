@@ -113,34 +113,46 @@ describe('mapRecursive', function () {
     });
 
     it('mapRecursiveLeaf(v)', function () {
+        const now = new Date();
+
         (mapRecursive.mapRecursiveLeaf(null) === null).should.true;
         mapRecursive.mapRecursiveLeaf(1).should.equal(1);
         mapRecursive.mapRecursiveLeaf('a').should.equal('a');
+        mapRecursive.mapRecursiveLeaf(now).should.equal(now);
 
         mapRecursive.mapRecursiveLeaf([]).should.deep.equal([]);
         mapRecursive.mapRecursiveLeaf([1, 2]).should.deep.equal([1, 2]);
+        mapRecursive.mapRecursiveLeaf([1, 2, now]).should.deep.equal([1, 2, now]);
 
         mapRecursive.mapRecursiveLeaf({}).should.deep.equal({});
         mapRecursive.mapRecursiveLeaf({a: 1}).should.deep.equal({a: 1});
         mapRecursive.mapRecursiveLeaf({a: 1, b: 2}).should.deep.equal({a: 1, b: 2});
+        mapRecursive.mapRecursiveLeaf({a: 1, b: 2, c: now}).should.deep.equal({a: 1, b: 2, c: now});
     });
 
     it('mapRecursiveLeaf(v, f)', function () {
+        const now = new Date();
+
         mapRecursive.mapRecursiveLeaf(null, v => v + 1).should.equal(1);
         mapRecursive.mapRecursiveLeaf(1, v => v + 1).should.equal(2);
+        mapRecursive.mapRecursiveLeaf('a', v => v + 1).should.equal('a1');
+        mapRecursive.mapRecursiveLeaf(now, v => v + 1).should.equal(now + 1);
+
         mapRecursive.mapRecursiveLeaf([1, 2], v => v + 1).should.deep.equal([2, 3]);
         mapRecursive.mapRecursiveLeaf([1, [2, [3]]], v => v + 1).should.deep.equal([2, [3, [4]]]);
         mapRecursive.mapRecursiveLeaf([1, [2, [3]], 4], v => v + 1).should.deep.equal([2, [3, [4]], 5]);
+        mapRecursive.mapRecursiveLeaf([1, [2, [3]], 4, now], v => v + 1).should.deep.equal([2, [3, [4]], 5, now + 1]);
 
         mapRecursive.mapRecursiveLeaf({a: null}, v => v + 1).should.deep.equal({a: 1});
         mapRecursive.mapRecursiveLeaf({a: 1}, v => v + 1).should.deep.equal({a: 2});
         mapRecursive.mapRecursiveLeaf({a: {b: 2}}, v => v + 1).should.deep.equal({a: {b: 3}});
+        mapRecursive.mapRecursiveLeaf({a: {b: 2}, c: now}, v => v + 1).should.deep.equal({a: {b: 3}, c: now + 1});
 
         mapRecursive.mapRecursiveLeaf(
-            {a: {b: 1, c: [3, {d: 4, e: 5,}, 6], f: 7}, g: 8, h: {i: null}},
+            {a: {b: 1, c: [3, {d: 4, e: 5,}, 6], f: 7}, g: 8, h: {i: null}, j: now},
             v => v * 10
         ).should.deep.equal(
-            {a: {b: 10, c: [30, {d: 40, e: 50,}, 60], f: 70}, g: 80, h: {i: 0}}
+            {a: {b: 10, c: [30, {d: 40, e: 50,}, 60], f: 70}, g: 80, h: {i: 0}, j: now * 10}
         );
     });
 
