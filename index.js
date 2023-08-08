@@ -16,7 +16,7 @@ const mapRecursive = (o, callback = (value, key, parent) => value, key, parent) 
         });
     }
 
-    if (typeof o === 'object') {
+    if (typeof o === 'object' && Object.getPrototypeOf(o) === Object.prototype) {
         return Object.keys(o).reduce((obj, key) => {
             const val = o[key];
             if (typeof val === 'object') {
